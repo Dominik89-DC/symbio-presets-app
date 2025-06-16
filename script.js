@@ -14,43 +14,41 @@ const presets = {
 upload.addEventListener('change', function (e) {
   const reader = new FileReader();
   reader.onload = function (f) {
-    fabric.Image.fromURL(f.target.result, function (img) {
-      const imgClone = fabric.util.object.clone(img);
+    const imgSrc = f.target.result;
 
-      // ORIGINAL
+    // Load and display original
+    fabric.Image.fromURL(imgSrc, function (origImg) {
       originalCanvas.clear();
-      imgClone.set({
-        left: 0,
-        top: 0,
-        scaleX: 250 / img.width,
-        scaleY: 250 / img.height,
+      origImg.set({
+        scaleX: 250 / origImg.width,
+        scaleY: 250 / origImg.height,
       });
-      originalCanvas.setWidth(imgClone.getScaledWidth());
-      originalCanvas.setHeight(imgClone.getScaledHeight());
-      originalCanvas.add(imgClone);
+      originalCanvas.setWidth(origImg.getScaledWidth());
+      originalCanvas.setHeight(origImg.getScaledHeight());
+      originalCanvas.add(origImg);
+    });
 
-      // EDITED
+    // Load and apply preset
+    fabric.Image.fromURL(imgSrc, function (editImg) {
       canvas.clear();
-      img.set({
-        left: 0,
-        top: 0,
-        scaleX: 250 / img.width,
-        scaleY: 250 / img.height,
+      editImg.set({
+        scaleX: 250 / editImg.width,
+        scaleY: 250 / editImg.height,
       });
 
       const preset = presets[presetSelect.value];
-      img.filters = [];
+      editImg.filters = [];
       if (preset.brightness !== undefined)
-        img.filters.push(new fabric.Image.filters.Brightness({ brightness: preset.brightness }));
+        editImg.filters.push(new fabric.Image.filters.Brightness({ brightness: preset.brightness }));
       if (preset.contrast !== undefined)
-        img.filters.push(new fabric.Image.filters.Contrast({ contrast: preset.contrast }));
+        editImg.filters.push(new fabric.Image.filters.Contrast({ contrast: preset.contrast }));
       if (preset.saturation !== undefined)
-        img.filters.push(new fabric.Image.filters.Saturation({ saturation: preset.saturation }));
+        editImg.filters.push(new fabric.Image.filters.Saturation({ saturation: preset.saturation }));
 
-      img.applyFilters();
-      canvas.setWidth(img.getScaledWidth());
-      canvas.setHeight(img.getScaledHeight());
-      canvas.add(img);
+      editImg.applyFilters();
+      canvas.setWidth(editImg.getScaledWidth());
+      canvas.setHeight(editImg.getScaledHeight());
+      canvas.add(editImg);
     });
   };
   reader.readAsDataURL(e.target.files[0]);
