@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Photo Preset Selector</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 2rem; }
+    canvas { margin-top: 1rem; border: 1px solid #ccc; max-width: 100%; }
+  </style>
+</head>
+<body>
+  <h1>Choose a Preset and Upload Your Photo</h1>
+  <select id="presetSelect">
+    <option value="softBeige">SOFT BEIGE HIGHLIGHT</option>
+    <option value="warmTone">WARM TONE PRESET</option>
+    <option value="orangeGrey">MINIMALIST ORANGE & GREY</option>
+    <option value="mutedOrange">MUTED ORANGE ACCENT</option>
+  </select><br><br>
+  <input type="file" id="upload" accept="image/*"><br>
+  <canvas id="canvas"></canvas><br>
+  <button onclick="downloadImage()">Download Edited Image</button>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.6.0/fabric.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
