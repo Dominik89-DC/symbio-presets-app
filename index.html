@@ -8,6 +8,9 @@
   <style>
     body { font-family: Arial, sans-serif; text-align: center; margin: 2rem; }
     canvas { margin-top: 1rem; border: 1px solid #ccc; max-width: 100%; }
+    .canvas-container { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+    .canvas-container div { flex: 1; }
+    label { font-weight: bold; display: block; margin: 1rem 0 0.5rem; }
   </style>
 </head>
 <body>
@@ -19,7 +22,16 @@
     <option value="mutedOrange">MUTED ORANGE ACCENT</option>
   </select><br><br>
   <input type="file" id="upload" accept="image/*"><br>
-  <canvas id="canvas"></canvas><br>
+  <div class="canvas-container">
+    <div>
+      <label>Original</label>
+      <canvas id="originalCanvas"></canvas>
+    </div>
+    <div>
+      <label>Edited</label>
+      <canvas id="canvas"></canvas>
+    </div>
+  </div>
   <button onclick="downloadImage()">Download Edited Image</button>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.6.0/fabric.min.js"></script>
